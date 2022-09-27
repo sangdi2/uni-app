@@ -38,6 +38,15 @@
             
         }
         
+        ,{
+            "path" : "uni_modules/components/search/search",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"subPackages": [
 		{
@@ -61,14 +70,23 @@
                 }
                 
                 }
+                ,{
+                    "path" : "search-detail/search-detail",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "",
+                    "enablePullDownRefresh": false
+                }
+                
+                }
             ]
 		}
 	],
 	"globalStyle": {
-		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8"
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "uni-shop",
+		"navigationBarBackgroundColor": "#bf2238",
+		"backgroundColor": "#bf2238"
 	},
 	"uniIdRouter": {},
 	"tabBar": {

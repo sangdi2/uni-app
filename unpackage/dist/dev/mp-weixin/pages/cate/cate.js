@@ -35,12 +35,26 @@ const _sfc_main = {
       common_vendor.index.navigateTo({
         url: "/subpkg/goods_list/goods_list?cid=" + item2.cat_id
       });
+    },
+    goToSearch() {
+      common_vendor.index.navigateTo({
+        url: "/subpkg/search-detail/search-detail"
+      });
     }
   }
 };
+if (!Array) {
+  const _easycom_search2 = common_vendor.resolveComponent("search");
+  _easycom_search2();
+}
+const _easycom_search = () => "../../components/search/search.js";
+if (!Math) {
+  _easycom_search();
+}
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
-    a: common_vendor.f($data.cate1List, (item, i, i0) => {
+    a: common_vendor.o($options.goToSearch),
+    b: common_vendor.f($data.cate1List, (item, i, i0) => {
       return {
         a: common_vendor.t(item.cat_name),
         b: common_vendor.n($data.active == i ? "active" : ""),
@@ -48,8 +62,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         d: common_vendor.o(($event) => $options.cateChange(i))
       };
     }),
-    b: $data.windowHeight + "px",
-    c: common_vendor.f($data.cate2List, (item1, i1, i0) => {
+    c: $data.windowHeight + "px",
+    d: common_vendor.f($data.cate2List, (item1, i1, i0) => {
       return {
         a: common_vendor.t(item1.cat_name),
         b: common_vendor.f(item1.children, (item2, i2, i12) => {
@@ -62,9 +76,9 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         })
       };
     }),
-    d: _ctx.i2,
-    e: $data.windowHeight + "px",
-    f: $data.scrollTop
+    e: _ctx.i2,
+    f: $data.windowHeight + "px",
+    g: $data.scrollTop
   };
 }
 var MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__file", "C:/Users/sangdi/Desktop/vs\u7EC3\u4E60/uni-app\u5FAE\u4FE1\u5C0F\u7A0B\u5E8F/uni_shop/pages/cate/cate.vue"]]);

@@ -1,0 +1,1 @@
+<view><view class="search-container" bindtap="{{a}}"><view class="search-item"><icon type="search" size="15"/><text>搜索</text></view></view></view>

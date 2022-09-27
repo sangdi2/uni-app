@@ -1,5 +1,6 @@
 <template>
 	<view>
+		<search @myclick="goToSearch"></search>
 		<view class="scroll">
 			<scroll-view class="left-scroll" scroll-y="true" :style="{height:windowHeight+'px'}">
 				<view class="cate1" v-for="(item,i) in cate1List" :key="i" @click="cateChange(i)">
@@ -57,6 +58,11 @@
 			gotoGoodsList(item2){
 				uni.navigateTo({
 					url:'/subpkg/goods_list/goods_list?cid='+item2.cat_id
+				})
+			},
+			goToSearch(){
+				uni.navigateTo({
+					url:"/subpkg/search-detail/search-detail"
 				})
 			}
 		}

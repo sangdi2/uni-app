@@ -54,3 +54,9 @@ swiper .swiper-item, swiper image {
 .right-item {
   padding-left: 10rpx;
 }
+.search-box {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
