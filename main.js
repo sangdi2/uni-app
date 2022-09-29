@@ -25,6 +25,7 @@ uni.$showMeg=function(title="数据请求失败",duration=1500){
 	})
 	
 }
+
 Vue.config.productionTip = false
 App.mpType = 'app'
 const app = new Vue({

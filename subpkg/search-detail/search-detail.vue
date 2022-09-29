@@ -6,7 +6,7 @@
 			</uni-search-bar>
 		</view>
 		<view class="searchs" v-if="searchList.length!==0">
-			<view class="searchs-item" v-for="(item,i) in searchList" :key="i" @click="gotoDetail(item)">
+			<view class="searchs-item" v-for="(item,i) in searchList" :key="i" @click="gotoDetail()">
 				<view class="searchs-content">{{item.goods_name}}</view>
 				<uni-icons type="arrowright" size="15"></uni-icons> 
 			</view>
@@ -17,7 +17,7 @@
 				<uni-icons type="trash" size="15" @click="clean"></uni-icons> 
 			</view>
 			<view class="history-content">
-			    <uni-tag :text="item" v-for="(item,i) in histories" :key="i"></uni-tag>
+			    <uni-tag :text="item" v-for="(item,i) in histories" :key="i" @click="gotoList(item)"></uni-tag>
 			</view>
 		</view>
 	</view>
@@ -58,10 +58,16 @@
 				}
 				const {data:res} =await $http.get('https://api-ugo-web.itheima.net/api/public/v1/goods/qsearch',{query:this.kw})
 				if(res.meta.status!==200) return uni.$showMeg()
+				console.log(res.message)
 				this.searchList=res.message
 				this.SaveHistoryList()
 			},
 			gotoDetail(item){
+				uni.navigateTo({
+					url:'/subpkg/goods_detail/goods_detail'
+				})
+			},
+			gotoList(item){
 				uni.navigateTo({
 					url:'/subpkg/goods_list/goods_list?query='+item
 				})

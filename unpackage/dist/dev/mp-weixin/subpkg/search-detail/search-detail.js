@@ -34,10 +34,16 @@ const _sfc_main = {
       const { data: res } = await common_vendor.$http.get("https://api-ugo-web.itheima.net/api/public/v1/goods/qsearch", { query: this.kw });
       if (res.meta.status !== 200)
         return common_vendor.index.$showMeg();
+      console.log(res.message);
       this.searchList = res.message;
       this.SaveHistoryList();
     },
     gotoDetail(item) {
+      common_vendor.index.navigateTo({
+        url: "/subpkg/goods_detail/goods_detail"
+      });
+    },
+    gotoList(item) {
       common_vendor.index.navigateTo({
         url: "/subpkg/goods_list/goods_list?query=" + item
       });
@@ -87,25 +93,26 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       return {
         a: common_vendor.t(item.goods_name),
         b: "e274ea5e-1-" + i0,
-        c: i,
-        d: common_vendor.o(($event) => $options.gotoDetail(item))
+        c: i
       };
     }),
     k: common_vendor.p({
       type: "arrowright",
       size: "15"
-    })
+    }),
+    l: common_vendor.o(($event) => $options.gotoDetail())
   } : {
-    l: common_vendor.o($options.clean),
-    m: common_vendor.p({
+    m: common_vendor.o($options.clean),
+    n: common_vendor.p({
       type: "trash",
       size: "15"
     }),
-    n: common_vendor.f($options.histories, (item, i, i0) => {
+    o: common_vendor.f($options.histories, (item, i, i0) => {
       return {
         a: i,
-        b: "e274ea5e-3-" + i0,
-        c: common_vendor.p({
+        b: common_vendor.o(($event) => $options.gotoList(item)),
+        c: "e274ea5e-3-" + i0,
+        d: common_vendor.p({
           text: item
         })
       };
