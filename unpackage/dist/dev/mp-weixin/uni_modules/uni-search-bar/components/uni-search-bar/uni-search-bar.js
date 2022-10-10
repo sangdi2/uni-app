@@ -123,16 +123,16 @@ const _sfc_main = {
       this.searchVal = "";
       this.show = false;
       this.showSync = false;
-      common_vendor.index.hideKeyboard();
+      common_vendor.index$1.hideKeyboard();
     },
     confirm() {
-      common_vendor.index.hideKeyboard();
+      common_vendor.index$1.hideKeyboard();
       this.$emit("confirm", {
         value: this.searchVal
       });
     },
     blur() {
-      common_vendor.index.hideKeyboard();
+      common_vendor.index$1.hideKeyboard();
       this.$emit("blur", {
         value: this.searchVal
       });

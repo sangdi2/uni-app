@@ -18,7 +18,7 @@ const _sfc_main = {
       const { data: res } = await common_vendor.$http.get("https://api-ugo-web.itheima.net/api/public/v1/home/swiperdata");
       console.log(res);
       if (res.meta.status != 200) {
-        return common_vendor.index.$showMeg();
+        return common_vendor.index$1.$showMeg();
       }
       this.swiperList = res.message;
     },
@@ -26,13 +26,13 @@ const _sfc_main = {
       const { data: res } = await common_vendor.$http.get("https://api-ugo-web.itheima.net/api/public/v1/home/catitems");
       console.log(res);
       if (res.meta.status != 200) {
-        return common_vendor.index.$showMeg();
+        return common_vendor.index$1.$showMeg();
       }
       this.navList = res.message;
     },
     tiaoZhuanCate(item) {
       if (item.name == "\u5206\u7C7B") {
-        common_vendor.index.switchTab({
+        common_vendor.index$1.switchTab({
           url: "/pages/cate/cate"
         });
       }
@@ -41,7 +41,7 @@ const _sfc_main = {
       const { data: res } = await common_vendor.$http.get("https://api-ugo-web.itheima.net/api/public/v1/home/floordata");
       console.log(res);
       if (res.meta.status != 200) {
-        return common_vendor.index.$showMeg();
+        return common_vendor.index$1.$showMeg();
       }
       res.message.forEach((floor) => {
         floor.product_list.forEach((floor2) => {
@@ -51,7 +51,7 @@ const _sfc_main = {
       this.floorList = res.message;
     },
     goToSearch() {
-      common_vendor.index.navigateTo({
+      common_vendor.index$1.navigateTo({
         url: "/subpkg/search-detail/search-detail"
       });
     }

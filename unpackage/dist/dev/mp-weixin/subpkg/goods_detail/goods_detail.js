@@ -1,5 +1,6 @@
 "use strict";
 var common_vendor = require("../../common/vendor.js");
+var store_store = require("../../store/store.js");
 const _sfc_main = {
   data() {
     return {
@@ -8,6 +9,10 @@ const _sfc_main = {
       autoplay: true,
       interval: 2e3,
       duration: 500,
+      cart: [],
+      c: 0,
+      b: 0,
+      d: 0,
       options: [{
         icon: "shop",
         text: "\u5E97\u94FA",
@@ -15,7 +20,8 @@ const _sfc_main = {
         infoColor: "red"
       }, {
         icon: "cart",
-        text: "\u8D2D\u7269\u8F66"
+        text: "\u8D2D\u7269\u8F66",
+        info: 0
       }],
       buttonGroup: [
         {
@@ -34,18 +40,47 @@ const _sfc_main = {
   onLoad(options) {
     const goods_id = options.goods_id;
     this.getgoodsdetails(goods_id);
+    this.cart = store_store.store.state.cart;
+    console.log("ccccc");
+    console.log(this.cart);
+    this.cart.forEach((x) => this.d += x.goods_count);
+    this.options[1].info = this.d;
+    this.d = 0;
+  },
+  computed: {
+    num() {
+      return store_store.store.state.count;
+    }
   },
   methods: {
     async getgoodsdetails(goods_id) {
       const { data: res } = await common_vendor.$http.get("https://api-ugo-web.itheima.net/api/public/v1/goods/detail", { goods_id });
       console.log(res);
       if (res.meta.status !== 200) {
-        return common_vendor.index.$showMeg();
+        return common_vendor.index$1.$showMeg();
       }
       this.detail_info = res.message;
     },
+    buttonClick(e) {
+      if (e.content.text == "\u52A0\u5165\u8D2D\u7269\u8F66") {
+        const goods = {
+          goods_id: this.detail_info.goods_id,
+          goods_name: this.detail_info.goods_name,
+          goods_price: this.detail_info.goods_price,
+          goods_count: 1,
+          goods_small_logo: this.detail_info.goods_small_logo,
+          goods_state: true
+        };
+        store_store.store.commit("changecart", goods);
+        this.cart = JSON.parse(common_vendor.index$1.getStorageSync("cart")) || "[]";
+        this.cart.forEach((x) => this.b += x.goods_count);
+        this.c = this.b;
+        this.b = 0;
+        this.options[1].info = this.c;
+      }
+    },
     preview(i) {
-      common_vendor.index.previewImage({
+      common_vendor.index$1.previewImage({
         current: i,
         urls: this.detail_info.pics.map((x) => x.pics_big)
       });
@@ -53,7 +88,7 @@ const _sfc_main = {
     onClick(e) {
       console.log(e);
       if (e.content.text == "\u8D2D\u7269\u8F66") {
-        common_vendor.index.switchTab({
+        common_vendor.index$1.switchTab({
           url: "/pages/cart/cart"
         });
       }
@@ -91,7 +126,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       color: "gray"
     }),
     i: common_vendor.o($options.onClick),
-    j: common_vendor.o(_ctx.buttonClick),
+    j: common_vendor.o($options.buttonClick),
     k: common_vendor.p({
       fill: true,
       options: $data.options,

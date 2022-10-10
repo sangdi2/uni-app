@@ -30,6 +30,9 @@
 }
 .goodsitem .item-left {
   margin-right: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .goodsitem .item-left image {
   width: 100px;
@@ -46,4 +49,7 @@
 .goodsitem .item-right .goods-info {
   font-size: 15px;
   color: red;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

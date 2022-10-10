@@ -52,8 +52,8 @@ const _sfc_main = {
       });
     },
     buttonClick(index, item) {
-      if (common_vendor.index.report && this.stat) {
-        common_vendor.index.report(item.text, item.text);
+      if (common_vendor.index$1.report && this.stat) {
+        common_vendor.index$1.report(item.text, item.text);
       }
       this.$emit("buttonClick", {
         index,

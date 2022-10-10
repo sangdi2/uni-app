@@ -11,7 +11,7 @@ const _sfc_main = {
     };
   },
   onLoad() {
-    const wh = common_vendor.index.getSystemInfoSync();
+    const wh = common_vendor.index$1.getSystemInfoSync();
     console.log(wh);
     this.windowHeight = wh.windowHeight;
     this.getcateList();
@@ -21,7 +21,7 @@ const _sfc_main = {
       const { data: res } = await common_vendor.$http.get("https://api-ugo-web.itheima.net/api/public/v1/categories");
       console.log(res);
       if (res.meta.status != 200) {
-        return common_vendor.index.$showMeg();
+        return common_vendor.index$1.$showMeg();
       }
       this.cate1List = res.message;
       this.cate2List = res.message[0].children;
@@ -32,12 +32,12 @@ const _sfc_main = {
       this.scrollTop = this.scrollTop === 0 ? 1 : 0;
     },
     gotoGoodsList(item2) {
-      common_vendor.index.navigateTo({
+      common_vendor.index$1.navigateTo({
         url: "/subpkg/goods_list/goods_list?cid=" + item2.cat_id
       });
     },
     goToSearch() {
-      common_vendor.index.navigateTo({
+      common_vendor.index$1.navigateTo({
         url: "/subpkg/search-detail/search-detail"
       });
     }

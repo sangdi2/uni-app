@@ -15,7 +15,7 @@ const _sfc_main = {
     }
   },
   onLoad() {
-    this.historyList = common_vendor.index.getStorageSync("kw") || [];
+    this.historyList = common_vendor.index$1.getStorageSync("kw") || [];
   },
   methods: {
     input(e) {
@@ -33,18 +33,18 @@ const _sfc_main = {
       }
       const { data: res } = await common_vendor.$http.get("https://api-ugo-web.itheima.net/api/public/v1/goods/qsearch", { query: this.kw });
       if (res.meta.status !== 200)
-        return common_vendor.index.$showMeg();
+        return common_vendor.index$1.$showMeg();
       console.log(res.message);
       this.searchList = res.message;
       this.SaveHistoryList();
     },
     gotoDetail(item) {
-      common_vendor.index.navigateTo({
+      common_vendor.index$1.navigateTo({
         url: "/subpkg/goods_detail/goods_detail"
       });
     },
     gotoList(item) {
-      common_vendor.index.navigateTo({
+      common_vendor.index$1.navigateTo({
         url: "/subpkg/goods_list/goods_list?query=" + item
       });
     },
@@ -53,11 +53,11 @@ const _sfc_main = {
       set.delete(this.kw);
       set.add(this.kw);
       this.historyList = Array.from(set);
-      common_vendor.index.setStorageSync("kw", this.historyList);
+      common_vendor.index$1.setStorageSync("kw", this.historyList);
     },
     clean() {
       this.historyList = [];
-      common_vendor.index.setStorageSync("kw", "[]");
+      common_vendor.index$1.setStorageSync("kw", "[]");
     }
   }
 };

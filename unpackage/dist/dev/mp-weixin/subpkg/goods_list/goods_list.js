@@ -26,21 +26,21 @@ const _sfc_main = {
       const { data: res } = await common_vendor.$http.get("https://api-ugo-web.itheima.net/api/public/v1/goods/search", this.queryobj);
       this.isloading = false;
       if (res.meta.status !== 200) {
-        return common_vendor.index.$showMeg();
+        return common_vendor.index$1.$showMeg();
       }
       this.total = res.message.total;
       this.goodslist = [...this.goodslist, ...res.message.goods];
       console.log(res);
     },
     gotoDetail(item) {
-      common_vendor.index.navigateTo({
+      common_vendor.index$1.navigateTo({
         url: "/subpkg/goods_detail/goods_detail?goods_id=" + item.goods_id
       });
     },
     onReachBottom() {
       console.log("fvvvvvvvvv");
       if (this.queryobj.pagenum * this.queryobj.pagesize >= this.total)
-        return common_vendor.index.$showMeg("\u6570\u636E\u52A0\u8F7D\u5B8C\u6BD5");
+        return common_vendor.index$1.$showMeg("\u6570\u636E\u52A0\u8F7D\u5B8C\u6BD5");
       if (this.isloading) {
         return;
       }

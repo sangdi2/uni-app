@@ -16,7 +16,7 @@
 					<view>收藏</view>
 				</view>
 			</view>
-			<view class="yf">快递:免运费</view>
+			<view class="yf">快递:免运费--</view>
 		</view>
 		<view class="goodsnav">
 			<uni-goods-nav :fill="true"  :options="options" :buttonGroup="buttonGroup"  @click="onClick" @buttonClick="buttonClick" />
@@ -26,6 +26,9 @@
 
 <script>
 	import {$http} from '@escook/request-miniprogram'
+	import store from '@/store/store.js'
+	// import { mapState } from 'vuex'
+	
 	export default {
 		data() {
 			return {
@@ -34,6 +37,10 @@
 				autoplay: true,
 				interval: 2000,
 				duration: 500,
+				cart:[],
+				c:0,
+				b:0,
+				d:0,
 				options: [ {
 				            icon: 'shop',
 				            text: '店铺',
@@ -43,7 +50,7 @@
 				        }, {
 				            icon: 'cart',
 				            text: '购物车',
-				            
+				            info:0
 				        }],
 				buttonGroup: [{
 				          text: '加入购物车',
@@ -61,7 +68,28 @@
 		onLoad(options){
 			const goods_id=options.goods_id
 			this.getgoodsdetails(goods_id)
+			this.cart=store.state.cart
+			console.log("ccccc")
+			console.log(this.cart)
+		    this.cart.forEach(x=>this.d+=x.goods_count)
+			this.options[1].info=this.d
+			this.d=0
 		},
+		
+		computed:{
+			num(){
+				return store.state.count
+			}
+			
+			// getinfo(){
+			// 	return store.getters.total
+			// }
+		},
+		// watch:{
+		// 	total(newVal){
+		// 		this.options[1].info=newVal
+		// 	}
+		// },
 		methods:{
 			async getgoodsdetails(goods_id){
 				const {data:res} =await $http.get('https://api-ugo-web.itheima.net/api/public/v1/goods/detail',{goods_id})
@@ -70,6 +98,27 @@
 					return uni.$showMeg()
 				}
 				this.detail_info=res.message
+			},
+			buttonClick(e){
+				if(e.content.text=="加入购物车"){
+					const goods={
+						goods_id:this.detail_info.goods_id,
+						goods_name:this.detail_info.goods_name,
+						goods_price:this.detail_info.goods_price,
+						goods_count:1,
+						goods_small_logo:this.detail_info.goods_small_logo,
+						goods_state:true
+					}
+					store.commit('changecart',goods)
+					// this.options[1].info=
+					this.cart=JSON.parse(uni.getStorageSync('cart'))||'[]'
+					this.cart.forEach(x=>this.b+=x.goods_count)
+					this.c=this.b
+					this.b=0
+					this.options[1].info=this.c
+					
+					
+				}
 			},
 			preview(i){
 				uni.previewImage({
@@ -84,7 +133,8 @@
 						url:'/pages/cart/cart'
 					})
 				}
-			}
+			},
+			
 		}
 	}
 </script>
