@@ -8,7 +8,7 @@
 			<view>合计：</view>
 			<view class="zong-price">￥{{goodsPrice.toFixed(2)}}</view>
 		</view>
-		<view class="right">结算({{checkedtotal}})</view>
+		<view class="right" @click="jiesuan">结算({{checkedtotal}})</view>
 		
 	</view>
 </template>
@@ -19,7 +19,8 @@
 		name:"my-settle",
 		data() {
 			return {
-				
+				second:3,
+				timer:null
 			};
 		},
 		methods:{
@@ -27,6 +28,49 @@
 				store.commit('updateState',!this.isfullchecked)
 				this.$emit('quancart')
 				
+			},
+			showTips(n){
+				uni.showToast({
+										title: '请先登录,在'+n+'秒之后将会跳转到登录页面',
+										icon: 'none',
+										duration: 1500
+							  })  
+			},
+			
+			jiesuan(){
+				if(!store.getters.checkedcount) 
+					return uni.showToast({
+											title: '请先选择要结算的商品',
+											icon: 'none',
+											duration: 2000
+										})  
+				if(!store.getters.addre) 
+					return uni.showToast({
+											title: '请选择地址',
+											icon: 'none',
+											duration: 2000
+										})  
+				if(!store.state.token) 
+					return this.delay() 
+			},
+			delay(){
+				this.second=3
+				this.showTips(this.second)
+				this.timer=setInterval(()=>{
+					this.second--
+					if(this.second<=0){
+						clearInterval(this.timer)
+						uni.switchTab({
+							url:'/pages/my/my'
+						})
+						store.commit('updateredirectinfo',{
+							opentype:'switchTab',
+							from:'/pages/cart/cart'
+						})
+						return
+					}
+					this.showTips(this.second)
+				},1000)
 			}
 		},
 		computed:{

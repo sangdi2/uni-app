@@ -4,7 +4,10 @@ createApp().use(Vuex)
 export default new Vuex.Store({
   state: {
 	  cart:JSON.parse(uni.getStorageSync('cart')||'[]'),
-	  address:JSON.parse(uni.getStorageSync('address')||'{}')
+	  address:JSON.parse(uni.getStorageSync('address')||'{}'),
+	  token:uni.getStorageSync('token')||'',
+	  userinfo:JSON.parse(uni.getStorageSync('userinfo')||'{}'),
+	  redirectinfo:null
   },
   mutations:{
   	changecart(state,goods){
@@ -50,6 +53,23 @@ export default new Vuex.Store({
 	updateState(state,newstate){
 		state.cart.forEach(x=>x.goods_state=newstate)
 		this.commit('savetolocal')
+	},
+	updateUserinfo(state,userinfo){
+		state.userinfo=userinfo
+		this.commit('saveUserinfo')
+	},
+	saveUserinfo(state){
+		uni.setStorageSync('userinfo',JSON.stringify(state.userinfo))
+	},
+	updateToken(state,token){
+		state.token=token
+		this.commit('saveToken')
+	},
+	saveToken(state){
+		uni.setStorageSync('token',state.token)
+	},
+	updateredirectinfo(state,redirectinfo){
+		state.redirectinfo=redirectinfo
 	}
 	
   },
@@ -62,6 +82,10 @@ export default new Vuex.Store({
 	  },
 	  checkedGoodsPrice(state){
 		  return state.cart.filter(x=>x.goods_state).reduce((total,item)=>total+=item.goods_count*item.goods_price,0)
+	  },
+	  addre(state){
+	  	if(state.address.provinceName==='') return ''
+	  	return state.address.provinceName+state.address.cityName+state.address.countyName+state.address.detailInfo
 	  }
 	  
   }

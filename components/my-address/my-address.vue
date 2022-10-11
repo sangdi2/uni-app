@@ -35,6 +35,9 @@
 		created() {
 			this.address=store.state.address
 		},
+		onShow() {
+			this.address=store.state.address
+		},
 		methods:{
 			async chooseAddress(){
 				const res=await uni.chooseAddress().catch(err=>err)

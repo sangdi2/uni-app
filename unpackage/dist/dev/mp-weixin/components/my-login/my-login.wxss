@@ -23,6 +23,21 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-page, .mypage {
-  background-color: #f4f4f4;
+.unlogin {
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.unlogin .btn-login {
+  width: 650rpx;
+  border-radius: 100px;
+  font-size: 13px;
+  margin: 10px 0;
+  background-color: #bf2238;
+}
+.unlogin .login-person {
+  font-size: 13px;
+  color: gray;
 }

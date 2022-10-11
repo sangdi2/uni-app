@@ -11,6 +11,9 @@ const _sfc_main = {
   created() {
     this.address = store_store.store.state.address;
   },
+  onShow() {
+    this.address = store_store.store.state.address;
+  },
   methods: {
     async chooseAddress() {
       const res = await common_vendor.index$1.chooseAddress().catch((err) => err);

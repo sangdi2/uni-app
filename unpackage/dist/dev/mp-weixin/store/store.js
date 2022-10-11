@@ -4,7 +4,10 @@ common_vendor.createApp().use(common_vendor.index);
 var store = new common_vendor.index.Store({
   state: {
     cart: JSON.parse(common_vendor.index$1.getStorageSync("cart") || "[]"),
-    address: JSON.parse(common_vendor.index$1.getStorageSync("address") || "{}")
+    address: JSON.parse(common_vendor.index$1.getStorageSync("address") || "{}"),
+    token: common_vendor.index$1.getStorageSync("token") || "",
+    userinfo: JSON.parse(common_vendor.index$1.getStorageSync("userinfo") || "{}"),
+    redirectinfo: null
   },
   mutations: {
     changecart(state, goods) {
@@ -50,6 +53,23 @@ var store = new common_vendor.index.Store({
     updateState(state, newstate) {
       state.cart.forEach((x) => x.goods_state = newstate);
       this.commit("savetolocal");
+    },
+    updateUserinfo(state, userinfo) {
+      state.userinfo = userinfo;
+      this.commit("saveUserinfo");
+    },
+    saveUserinfo(state) {
+      common_vendor.index$1.setStorageSync("userinfo", JSON.stringify(state.userinfo));
+    },
+    updateToken(state, token) {
+      state.token = token;
+      this.commit("saveToken");
+    },
+    saveToken(state) {
+      common_vendor.index$1.setStorageSync("token", state.token);
+    },
+    updateredirectinfo(state, redirectinfo) {
+      state.redirectinfo = redirectinfo;
     }
   },
   getters: {
@@ -61,6 +81,11 @@ var store = new common_vendor.index.Store({
     },
     checkedGoodsPrice(state) {
       return state.cart.filter((x) => x.goods_state).reduce((total, item) => total += item.goods_count * item.goods_price, 0);
+    },
+    addre(state) {
+      if (state.address.provinceName === "")
+        return "";
+      return state.address.provinceName + state.address.cityName + state.address.countyName + state.address.detailInfo;
     }
   }
 });
