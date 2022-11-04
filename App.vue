@@ -24,6 +24,7 @@
 				return store.getters.totalcart
 			}
 		},
+		
 		watch:{
 			tabbarnum(){
 				this.setbadage()
